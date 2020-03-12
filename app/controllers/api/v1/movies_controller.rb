@@ -16,7 +16,7 @@ module Api
       end
 
       def index
-        
+        render json: Movie.all.to_json(methods: :release_year)
       end
 
       private

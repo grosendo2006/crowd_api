@@ -3,13 +3,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :movies do
-        resources :people
+        scope module: :movies do
+          resources :people, only: [:index]
+        end
       end
       resources :people do
-        resources :movies_as_actor
-        resources :movies_as_director
-        resources :movies_as_producer
+        scope module: :people do
+          resources :movies, only: [:index]
+        end
       end
+      resources :rols
+      resources :participations
     end
   end
 end

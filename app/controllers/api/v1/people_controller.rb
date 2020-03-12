@@ -16,7 +16,7 @@ module Api
       end
 
       def index
-        
+        render json: People.all
       end
 
       private
