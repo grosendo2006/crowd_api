@@ -12,7 +12,7 @@ Rails.application.routes.draw do
           resources :movies, only: [:index]
         end
       end
-      resources :rols
+      resources :roles
       resources :participations
     end
   end

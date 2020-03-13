@@ -17,10 +17,12 @@ module Api
       end
 
       def create
-        if Movie.create!(movie_params)
-          json_response @movie
+        movie = Movie.new(movie_params)
+        if movie.validate
+          movie.save
+          json_response movie
         else
-          json_response @movie.errors, :unprocessable_entity
+          json_response movie.errors, :unprocessable_entity
         end
       end
 
@@ -36,7 +38,7 @@ module Api
       private
 
       def set_movie
-        @movie.decorate = Movie.find(movie_params[:id])
+        @movie = Movie.find(movie_params[:id]).decorate
       end
 
       def movie_params

@@ -1,10 +1,10 @@
 module Api
   module V1
-    class RolsController < ApplicationController
+    class RolesController < ApplicationController
       skip_before_action :verify_authenticity_token
 
       def show
-        render json: Rol.find(people_params[:id])
+        render json: Role.find(people_params[:id])
       end
 
       def update
@@ -12,7 +12,7 @@ module Api
       end
 
       def create
-        Rol.create(rol_params)
+        Role.create(rol_params)
       end
 
       def index

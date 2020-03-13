@@ -11,10 +11,10 @@ module Api
         end
 
         def call
-          person_query_2.movies.each do |movie|
+          person_query.movies.each do |movie|
             @movies_data << {
               movie: movie.title,
-              rols: person_query.participations_in(movie)
+              roles: person_query.participations_in(movie)
             }
           end
           @movies_data
@@ -25,7 +25,7 @@ module Api
         def person_query
           @person_query ||=
             Person.eager_load(:movies)
-                  .includes(participations: [:rol])
+                  .includes(participations: [:role])
                   .find(@movie_params[:person_id])
         end
       end

@@ -14,7 +14,7 @@ module Api
           movie_query.people.each do |people|
             @people_data << {
               name: "#{people.first_name} #{people.last_name}",
-              rols: people.rols.map(&:name)
+              roles: people.roles.map(&:name)
             }
           end
           @people_data

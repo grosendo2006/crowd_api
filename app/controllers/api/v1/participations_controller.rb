@@ -12,7 +12,13 @@ module Api
       end
 
       def create
-        Participation.create(participation_params)
+        participation = Participation.new(participation_params)
+        if participation.validate
+          participation.save
+          json_response participation
+        else
+          json_response participation.errors, :unprocessable_entity
+        end
       end
 
       def index
@@ -22,7 +28,7 @@ module Api
       private
 
       def participation_params
-        params.permit(:id, :person_id, :rol_id, :movie_id)
+        params.permit(:id, :person_id, :role_id, :movie_id)
       end
     end
   end
