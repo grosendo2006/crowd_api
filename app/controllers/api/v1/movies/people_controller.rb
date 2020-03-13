@@ -5,15 +5,7 @@ module Api
         skip_before_action :verify_authenticity_token
 
         def index
-          people_data = []
-          movie = Movie.eager_load(:people).find(people_params[:movie_id])
-          movie.people.each do |people|
-            people_data << {
-              name: "#{people.first_name} #{people.last_name}",
-              rols: people.rols.map(&:name)
-            }
-          end
-          render json: people_data
+          render json: Api::V1::People::Index.new(people_params).call
         end
 
         private
