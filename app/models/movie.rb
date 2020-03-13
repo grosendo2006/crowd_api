@@ -1,8 +1,9 @@
 class Movie < ApplicationRecord
+
   has_many :participations
   has_many :people, through: :participations
 
-  def release_year
-    'MCCVX'
-  end
+  validates :title, presence: true
+  validates :release_year, numericality: { only_integer: true }
+
 end
