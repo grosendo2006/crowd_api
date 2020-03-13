@@ -32,7 +32,8 @@ module Api
       end
 
       def index
-        json_response Movie.all.to_json(methods: :release_year)
+        @movies = MovieDecorator.decorate_collection(Movie.all)
+        json_response @movies
       end
 
       private

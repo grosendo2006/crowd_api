@@ -9,20 +9,29 @@ module Api
       end
 
       def update
-        @person.update(people_params)
+        if @person.update(people_params)
+          json_response @person
+        else
+          json_response @person.errors, :unprocessable_entity
+        end
       end
 
       def create
-        Person.create(people_params)
+        person = Person.new(people_params)
+        if person.validate
+          person.save
+          json_response person
+        else
+          json_response person.errors, :unprocessable_entity
+        end
       end
 
       def index
-        json_response People.all
+        json_response Person.all
       end
 
       def destroy
-        @movie.destroy
-        head :no_content
+        json_response @person.destroy
       end
 
       private
