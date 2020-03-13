@@ -2,13 +2,14 @@ module Api
   module V1
     class PeopleController < ApplicationController
       skip_before_action :verify_authenticity_token
+      before_action :set_person, only: [:show, :update, :destroy]
 
       def show
-        render json: Person.find(people_params[:id])
+        json_response @person
       end
 
       def update
-        
+        @person.update(people_params)
       end
 
       def create
@@ -16,10 +17,19 @@ module Api
       end
 
       def index
-        render json: People.all
+        json_response People.all
+      end
+
+      def destroy
+        @movie.destroy
+        head :no_content
       end
 
       private
+
+      def set_person
+        @person = Person.find(people_params[:id])
+      end
 
       def people_params
         params.permit(:id, :last_name, :first_name, :aliases)
