@@ -1,7 +1,6 @@
 module Api
   module V1
     class PeopleController < ApplicationController
-      skip_before_action :verify_authenticity_token
       before_action :set_person, only: [:show, :update, :destroy]
 
       def show

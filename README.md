@@ -124,8 +124,3 @@ rails server
 Runs the app in the development mode.
 
 Open http://localhost:3000 to view it in the browser.
-
-# ToDo
-
-- Safe methods are publicly available, no authentication is required.
-- Unsafe methods are only available to authenticated users.

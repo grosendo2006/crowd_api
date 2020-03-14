@@ -1,7 +1,6 @@
 module Api
   module V1
     class MoviesController < ApplicationController
-      skip_before_action :verify_authenticity_token
       before_action :set_movie, only: [:show, :update, :destroy]
 
       def show
