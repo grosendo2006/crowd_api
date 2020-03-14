@@ -38,6 +38,11 @@ RSpec.describe Api::V1::MoviesController, type: :controller do
     }
   end
 
+  include AuthHelper
+  before(:each) do
+    http_login
+  end
+
   context 'when call show' do
     it 'responds successfully with an HTTP 200 status code' do
       get :show, params: { id: movie_one.id }
