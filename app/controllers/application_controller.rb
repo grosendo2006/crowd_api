@@ -11,4 +11,5 @@ class ApplicationController < ActionController::Base
         Rails.application.credentials[ENV['RAILS_ENV'].to_sym][:password]
     end
   end
+
 end

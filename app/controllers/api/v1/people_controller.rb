@@ -2,6 +2,7 @@ module Api
   module V1
     class PeopleController < ApplicationController
       before_action :set_person, only: [:show, :update, :destroy]
+      after_action :content_range, only: [:index]
 
       def show
         json_response @person
@@ -41,6 +42,11 @@ module Api
 
       def people_params
         params.permit(:id, :last_name, :first_name, :aliases)
+      end
+
+      def content_range
+        headers['Content-Range'] = Person.all.count
+        headers['Access-Control-Expose-Headers'] = 'Content-Range'
       end
     end
   end

@@ -2,6 +2,7 @@ module Api
   module V1
     class RolesController < ApplicationController
       before_action :set_role, only: [:show, :update, :destroy]
+      after_action :content_range, only: [:index]
 
       def show
         json_response @role
@@ -41,6 +42,11 @@ module Api
 
       def role_params
         params.permit(:id, :name)
+      end
+
+      def content_range
+        headers['Content-Range'] = Role.all.count
+        headers['Access-Control-Expose-Headers'] = 'Content-Range'
       end
     end
   end

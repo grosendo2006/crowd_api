@@ -2,6 +2,7 @@ module Api
   module V1
     class ParticipationsController < ApplicationController
       before_action :set_participation, only: [:show, :update, :destroy]
+      after_action :content_range, only: [:index]
 
       def show
         json_response @participation
@@ -25,6 +26,10 @@ module Api
         end
       end
 
+      def index
+        json_response Participation.all
+      end
+
       def destroy
         json_response @participation.destroy
       end
@@ -35,8 +40,13 @@ module Api
         params.permit(:id, :person_id, :role_id, :movie_id)
       end
 
-      def set_movie
-        @participation = Participation.find(movie_params[:id])
+      def set_participation
+        @participation = Participation.find(participation_params[:id])
+      end
+
+      def content_range
+        headers['Content-Range'] = Participation.all.count
+        headers['Access-Control-Expose-Headers'] = 'Content-Range'
       end
     end
   end

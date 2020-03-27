@@ -2,6 +2,7 @@ module Api
   module V1
     class MoviesController < ApplicationController
       before_action :set_movie, only: [:show, :update, :destroy]
+      after_action :content_range, only: [:index]
 
       def show
         json_response @movie
@@ -43,6 +44,11 @@ module Api
 
       def movie_params
         params.permit(:id, :title, :release_year)
+      end
+
+      def content_range
+        headers['Content-Range'] = Movie.all.count
+        headers['Access-Control-Expose-Headers'] = 'Content-Range'
       end
     end
   end
